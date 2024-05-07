@@ -5,9 +5,10 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 // signup function for the user to sign in
+console.log(process.env.EMAIL_ID,process.env.EMAIL_PASS)
 
 const processSignUp = async (req, res) => {
-  const { name, email, password, isPremium } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     if (!name || !email || !password) {
@@ -28,18 +29,19 @@ const processSignUp = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      ispremiumuser: isPremium,
+      ispremiumuser: false,
     });
   
     const token = jwt.sign({ userId: newUser.id }, process.env.jwtSecret);
     const subject = "Registration Successful";
     const text = "Thank you for registering. Your registration was successful.";
-    await sendSuccessEmail(email,subject,text);
+    // await sendSuccessEmail(email,subject,text);
+    console.log(newUser)
     res.status(201).json({
       message:
         "registration successful. Check your email for a confirmation message",
       token: token,
-      isPremium,
+      // isPremium,
     });
   } catch (err) {
     console.log("error during sign-up");
@@ -95,7 +97,6 @@ async function sendSuccessEmail(to, subject, text) {
       pass: process.env.EMAIL_PASS, // Your email password
     },
   });
-
   const mailOptions = {
     from: process.env.EMAIL_ID,
     to,
