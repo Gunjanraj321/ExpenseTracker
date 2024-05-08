@@ -1,7 +1,7 @@
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Auth from "./hooks/useAuth";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./components/About";
@@ -27,6 +27,7 @@ const App = () => {
       return () => clearInterval(interval);
     }
   }, [userLoginData]);
+  
   return (
     <div>
       <Header />

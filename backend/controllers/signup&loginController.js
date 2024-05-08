@@ -4,9 +4,6 @@ require("dotenv").config({ path: "nodemon.json" });
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
-// signup function for the user to sign in
-console.log(process.env.EMAIL_ID,process.env.EMAIL_PASS)
-
 const processSignUp = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -35,8 +32,8 @@ const processSignUp = async (req, res) => {
     const token = jwt.sign({ userId: newUser.id }, process.env.jwtSecret);
     const subject = "Registration Successful";
     const text = "Thank you for registering. Your registration was successful.";
-    // await sendSuccessEmail(email,subject,text);
-    console.log(newUser)
+
+    // console.log(newUser)
     res.status(201).json({
       message:
         "registration successful. Check your email for a confirmation message",
@@ -52,7 +49,6 @@ const processSignUp = async (req, res) => {
 };
 
 //login function for the user to login
-
 const processLogin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -69,7 +65,7 @@ const processLogin = async (req, res) => {
 
     if (passwordMatch) {
       console.log("password match");
-      //Passwords match, so the user is authenticated
+
       const subject = "Login Successful";
       const text = "Thank you for logging in. Your login was successful.";
       await sendSuccessEmail(email,subject,text);
@@ -105,7 +101,7 @@ async function sendSuccessEmail(to, subject, text) {
   }
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Success email sent");
+    // console.log("Success email sent");
   } catch (error) {
     console.error("Error sending success email:", error);
   }

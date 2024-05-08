@@ -17,9 +17,9 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    console.log(formData);
+    // console.log(formData);
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/sign/signupUser",

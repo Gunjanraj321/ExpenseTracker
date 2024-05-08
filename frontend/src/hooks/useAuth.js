@@ -5,7 +5,6 @@ import { isAuth , login} from "../redux/authSlice";
 
 const Auth = () => {
   const isAuthenticated = useSelector((state) => state.auth.user);
-
   const dispatch = useDispatch();
 
   const checkToeknExpiration = async () => {

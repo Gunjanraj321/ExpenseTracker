@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const ResetPage = () => {
     const { uuid } = useParams();
+    console.log(uuid);
     const [formData, setFormData] = useState({
         password:'',
         confirmPassword:''
     })
 
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -33,6 +35,7 @@ const ResetPage = () => {
                 password: password
             });
             setSuccessMessage(response.data.message);
+            navigate('/');
         } catch (err) {
             setError(err.response.data.message);
         }
