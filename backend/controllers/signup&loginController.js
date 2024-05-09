@@ -48,6 +48,11 @@ const processSignUp = async (req, res) => {
   }
 };
 
+const authCheck = (req, res) => {
+  const userId = req.user;
+  res.status(201).json({ message: "working", success: true, userId: userId });
+};
+
 //login function for the user to login
 const processLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -110,5 +115,6 @@ async function sendSuccessEmail(to, subject, text) {
 module.exports = {
   processSignUp,
   processLogin,
+  authCheck
 };
 

@@ -27,7 +27,7 @@ const App = () => {
       return () => clearInterval(interval);
     }
   }, [userLoginData]);
-  
+
   return (
     <div>
       <Header />

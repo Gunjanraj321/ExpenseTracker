@@ -142,7 +142,7 @@ const deleteExpense = async (req, res) => {
 
     // Committing the transaction and sending the response
     await t.commit();
-    res.json({
+    res.status(200).json({
       message: "Expense deleted successfully",
     });
   } catch (error) {
@@ -208,7 +208,7 @@ const updateExpense = async (req, res) => {
 
     // Committing the transaction and sending the response
     await t.commit();
-    res.json(updatedExpense);
+    res.status(200).json(updatedExpense);
   } catch (error) {
     // Rolling back the transaction in case of an error
     if(t){

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 const ExpenseForm = () => {
     const isAuthenticated = useSelector((state) => state.auth.user);
     const token = isAuthenticated?.token;
+    
     const [formData, setFormData] = useState({
         name: '',
         quantity: '',

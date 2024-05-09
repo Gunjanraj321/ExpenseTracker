@@ -10,17 +10,13 @@ const Auth = () => {
   const checkToeknExpiration = async () => {
     try {
       if (isAuthenticated?.token) {
-        const response = await axios.post("http://localhost:3000/api/auth", {
+        const response = await axios.post("http://localhost:3000/api/sign/authCheck", {
           token: isAuthenticated.token,
         });
         
-        if (response.data.success === true) {
+        if (response.data.success !==false) {
           dispatch(isAuth(true));
         } 
-        else {
-          dispatch(isAuth(false));
-          dispatch(login(null));
-        }
       }
     } catch (err) {
       dispatch(isAuth(false));
