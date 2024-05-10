@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 const processSignUp = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password , isPremium} = req.body;
 
   try {
-    if (!name || !email || !password) {
+    if (!name || !email || !password ) {
       return res.status(400).json({
         error: "missing required fields",
       });
@@ -26,19 +26,19 @@ const processSignUp = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      ispremiumuser: false,
+      ispremiumuser: isPremium,
     });
   
     const token = jwt.sign({ userId: newUser.id }, process.env.jwtSecret);
     const subject = "Registration Successful";
     const text = "Thank you for registering. Your registration was successful.";
+    await sendSuccessEmail(email,subject,text);
 
-    // console.log(newUser)
     res.status(201).json({
       message:
         "registration successful. Check your email for a confirmation message",
       token: token,
-      // isPremium,
+      isPremium,
     });
   } catch (err) {
     console.log("error during sign-up");

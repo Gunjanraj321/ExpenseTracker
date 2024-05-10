@@ -82,7 +82,6 @@ async function initiate() {
     await sequelize.sync();
     app.listen(port, () => {
       console.log(`Server is running at ${port}`);
-      // app.use("/api", redirectingRoute);
     });
   } catch (error) {
     console.log(error);

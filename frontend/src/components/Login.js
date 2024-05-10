@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { isAuth, login } from "../redux/authSlice";
+import { isAuth, login , updateUserPremiumStatus} from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -26,11 +26,13 @@ const Login = () => {
         "http://localhost:3000/api/sign/loginUser",
         formData
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       navigate("/");
       dispatch(login(response.data));
       dispatch(isAuth(true));
+      dispatch(updateUserPremiumStatus(response.data.isPremium));
+
     } catch (error) {
       console.error(error);
     }
