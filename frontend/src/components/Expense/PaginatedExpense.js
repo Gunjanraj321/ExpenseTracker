@@ -11,7 +11,7 @@ const PaginatedExpenseList = () => {
   const [expenses, setExpenses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState(null);
-  const isAuthenticated = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.user);
   const token = isAuthenticated?.token;
 
   useEffect(() => {
@@ -90,8 +90,8 @@ const PaginatedExpenseList = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Paginated Expense List</h2>
+    <div className="container mx-auto ">
+      <h2 className="text-2xl font-bold mb-4">Expense List</h2>
       <div id="expenseList" className="space-y-4">
         {expenses.map((expense) => (
           <ExpenseItem key={expense.id} expense={expense} onUpdate={openUpdateModal} onDelete={handleDeleteExpense} />

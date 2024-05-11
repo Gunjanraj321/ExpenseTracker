@@ -6,7 +6,7 @@ import {updateUserPremiumStatus} from "../redux/authSlice";
 
 const useRazorpay = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.user);
   const token = isAuthenticated?.token;
 
   const handlePremium = useCallback(async () => {

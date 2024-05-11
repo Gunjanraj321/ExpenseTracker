@@ -6,9 +6,9 @@ import { useParams } from "react-router-dom";
 const Report = () => {
   const { duration } = useParams();
   const [reportData, setReportData] = useState([]);
-  const isAuthenticated = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.user);
   const token = isAuthenticated?.token;
-  console.log(duration);
+
   const fetchReportData = async () => {
     try {
       const response = await axios.get(
@@ -37,13 +37,19 @@ const Report = () => {
   }, [duration, token]);
 
   return (
-    <div>
-      <h2>{duration} Report</h2>
-      <ul>
+    <div className="container mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-4">{duration} Report</h2>
+      <ul className="divide-y divide-gray-200">
         {reportData.map((item, index) => (
-          <li key={index}>{`${index + 1}: ${item.name} -- ${
-            item.quantity
-          }Pkt -- ${item.amount}`}</li>
+          <li
+            key={index}
+            className="flex justify-between items-center py-4"
+          >
+            <span className="text-lg">{index + 1}.</span>
+            <span className="text-lg">{item.name}</span>
+            <span className="text-lg">{item.quantity}Pkt</span>
+            <span className="text-lg">{item.amount}</span>
+          </li>
         ))}
       </ul>
     </div>

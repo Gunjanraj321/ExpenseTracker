@@ -1,10 +1,10 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { isAuth , login} from "../redux/authSlice";
+import { isAuth , user} from "../redux/authSlice";
 
 const Auth = () => {
-  const isAuthenticated = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const checkToeknExpiration = async () => {
@@ -20,7 +20,7 @@ const Auth = () => {
       }
     } catch (err) {
       dispatch(isAuth(false));
-      dispatch(login(null));
+      dispatch(user(null));
       console.log(err);
     }
   };

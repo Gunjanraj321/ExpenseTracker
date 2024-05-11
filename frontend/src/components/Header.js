@@ -1,25 +1,21 @@
 import React, { useState } from "react";
-import DropdownMenu from "./DropDownMenu";
 import { useDispatch, useSelector } from "react-redux";
-import useRazorpay from "./useRazorpay";
-import { isAuth, login, updateUserPremiumStatus } from "../redux/authSlice";
+import useRazorpay from "../hooks/useRazorpay";
+import { isAuth, user, updateUserPremiumStatus } from "../redux/authSlice";
 import { Link } from "react-router-dom";
+import { timeItems } from "./datafrombackend";
 
-const Header = ({ navItems, timeItems }) => {
-  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
-  const [isTimeMenuOpen, setIsTimeMenuOpen] = useState(false);
-  const [btnNameReact, setBtnNameReact] = useState("Login");
-  const isAuthenticated = useSelector((state) => state.auth.user);
-  const isPremium = useSelector((state) => state.auth.isPremium);
+const Header = () => {
+  const isAuthenticated = useSelector((state) => state.user);
+  const isPremium = useSelector((state) => state.isPremium);
   const handlePremium = useRazorpay();
-
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     if (isAuthenticated !== null) {
-      dispatch(login(null));
       dispatch(isAuth(false));
       dispatch(updateUserPremiumStatus(false));
+      dispatch(user(null));
     }
   };
 
@@ -37,36 +33,25 @@ const Header = ({ navItems, timeItems }) => {
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+              Expense Tracker
             </span>
           </a>
         </div>
-        <div className="relative inline-block text-left">
-          <button
-            type="button"
-            onClick={() => setIsNavMenuOpen(!isNavMenuOpen)}
-            className="mr-6 text-blue-500 hover:text-blue-700 focus:outline-none"
-          >
-            Menu
-          </button>
-          {isNavMenuOpen && <DropdownMenu items={navItems} />}
-        </div>
-        <div className="relative inline-block text-left">
-          {isAuthenticated !== null && isPremium ? (
-            <>
-              <button
-                type="button"
-                onClick={() => setIsTimeMenuOpen(!isTimeMenuOpen)}
-                className="mr-6 text-blue-500 hover:text-blue-700 focus:outline-none"
-              >
-                Time
-              </button>
-              {isTimeMenuOpen && <DropdownMenu items={timeItems} />}
-            </>
-          ) : null}
-        </div>
-
-        <div className="">
+        {isAuthenticated !== null && isPremium ? (
+          <ul className="flex items-center space-x-6">
+            {timeItems.map((item) => (
+              <li key={item.id}>
+                <Link
+                  to={item.link}
+                  className="text-blue-500 hover:text-blue-700 focus:outline-none"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+       
           {isAuthenticated !== null && !isPremium ? (
             <button
               type="button"
@@ -76,7 +61,7 @@ const Header = ({ navItems, timeItems }) => {
               Buy Premium
             </button>
           ) : null}
-        </div>
+        
         <div>
           {isAuthenticated ? (
             <button
@@ -85,11 +70,7 @@ const Header = ({ navItems, timeItems }) => {
             >
               Logout
             </button>
-          ) : (
-            <Link to="/login" className="text-blue-500 hover:underline">
-              Login
-            </Link>
-          )}
+          ) : null}
         </div>
       </div>
     </nav>

@@ -8,7 +8,7 @@ const authSlice = createSlice({
         isPremium: false
     },
     reducers: {
-        login(state, action) {
+        user(state, action) {
             state.user = action.payload;
         },
         isAuth(state, action) {
@@ -20,6 +20,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { login, isAuth, updateUserPremiumStatus } = authSlice.actions;
+export const { user, isAuth, updateUserPremiumStatus } = authSlice.actions;
 
 export default authSlice.reducer;

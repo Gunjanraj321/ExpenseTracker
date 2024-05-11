@@ -1,28 +1,30 @@
-import Signup from "./components/Signup";
-import Login from "./components/Login";
 import Auth from "./hooks/useAuth";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./components/About";
-import ResetForm from "./components/ResetForm";
 import ResetPage from "./components/ResetPage";
 import { Contact } from "./components/Contact";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import ResetForm from "./components/ResetForm";
-import { navItems, timeItems } from "./components/datafrombackend";
 import Leaderboard from "./components/premiumComponent/Leaderboard";
-import Report from './components/premiumComponent/Report'; // Import the Report component
+import Report from "./components/premiumComponent/Report";
+import AuthPage from "./pages/AuthPage";
+import Login from "./components/Login";
 
 const App = () => {
-  const userLoginData = useSelector((state) => state.auth.user);
-  const verifyUser = useSelector((state) => state.auth.isAuth);
+  
+  const userLoginData = useSelector((state) => state.user);
+  console.log(userLoginData);
+  const verifyUser = useSelector((state) => state.isAuth);
+
   const isAuth = Auth();
 
   useEffect(() => {
+    console.log(userLoginData);
     if (userLoginData?.token) {
+      console.log(userLoginData);
       const interval = setInterval(() => {
         isAuth();
       }, 5 * 60 * 1000);
@@ -33,18 +35,15 @@ const App = () => {
 
   return (
     <div>
-      <Header navItems={navItems} timeItems={timeItems} />
+      <Header />
       <Routes>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/auth" element={!verifyUser ? <AuthPage /> : <Navigate to="/" />} />
         <Route path="/about" element={<About />} />
-        <Route path="/reset" element={<ResetForm />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/" element={verifyUser ? <Home /> : <Navigate to="/auth" />} />
         <Route path="/resetForm/:uuid" element={<ResetPage />} />
-        <Route path="/report/:duration" element={<Report />} /> 
-        <Route path="/leaderboard" element={<Leaderboard />} />        <Route
-          path="/"
-          element={verifyUser ? <Home /> : <Navigate to="/login" />}
-        />{" "}
+        <Route path="/report/:duration" element={<Report />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/contact" element={<Contact />}></Route>
       </Routes>
       <Footer />

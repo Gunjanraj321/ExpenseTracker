@@ -30,8 +30,7 @@ const ResetForm = () => {
         "http://localhost:3000/api/pass/forgotpassword",
         formData
       );
-      // console.log(response.data);
-
+      alert("Recovery Mail Sent , PLease check your Mail.")
       navigate("/login");
     } catch (error) {
       console.error(error);

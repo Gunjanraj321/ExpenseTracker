@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { isAuth, login , updateUserPremiumStatus} from "../redux/authSlice";
+import { isAuth, user , updateUserPremiumStatus} from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -26,10 +26,10 @@ const Login = () => {
         "http://localhost:3000/api/sign/loginUser",
         formData
       );
-      // console.log(response.data);
 
       navigate("/");
-      dispatch(login(response.data));
+      
+      dispatch(user(response.data));
       dispatch(isAuth(true));
       dispatch(updateUserPremiumStatus(response.data.isPremium));
 
@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div className="flex flex-col items-center justify-center px-6 mx-auto ">
       <h2 className="text-xl font-bold text-gray-900 my-2 pX-4 md:text-2xl">
         Login
       </h2>
@@ -66,24 +66,6 @@ const Login = () => {
         >
           Login
         </button>
-        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-          Don’t have an account yet?{" "}
-          <a
-            href="/signup"
-            class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-          >
-            Sign up
-          </a>
-          </p>
-          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-          Want to Reset password ?{" "}
-          <a
-            href="/reset"
-            class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-          >
-            Reset Password
-          </a>
-        </p>
       </form>
     </div>
   );
