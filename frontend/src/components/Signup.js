@@ -26,18 +26,17 @@ const Signup = () => {
             "https://expense-tracker-blond-ten.vercel.app/api/sign/signupUser",
             formData
         );
+        console.log('Response:', response);
         alert(response.data.message); 
         navigate("/");
         dispatch(user(response.data));
         dispatch(isAuth(true));
         dispatch(updateUserPremiumStatus(response.data.isPremium));
     } catch (error) {
-        // if (error.response && error.response.data) {
-            // alert(error.response.data.error);
-        // } else {
+
             alert("An error occurred. Please try again later."); 
-        // }
-        console.error(error);
+  
+        console.error(`Error: ${error}`);
     }
 };
 
