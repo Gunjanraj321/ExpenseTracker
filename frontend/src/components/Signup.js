@@ -32,11 +32,11 @@ const Signup = () => {
         dispatch(isAuth(true));
         dispatch(updateUserPremiumStatus(response.data.isPremium));
     } catch (error) {
-        if (error.response && error.response.data) {
-            alert(error.response.data.error);
-        } else {
+        // if (error.response && error.response.data) {
+            // alert(error.response.data.error);
+        // } else {
             alert("An error occurred. Please try again later."); 
-        }
+        // }
         console.error(error);
     }
 };
