@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     try {
         const response = await axios.post(
-            "https://expense-tracker-silk-mu.vercel.app/api/sign/loginUser",
+            "https://expense-tracker-blond-ten.vercel.app/api/sign/loginUser",
             formData
         );
         if (response.status === 200) {

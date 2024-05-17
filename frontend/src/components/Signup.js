@@ -23,7 +23,7 @@ const Signup = () => {
     e.preventDefault();
     try {
         const response = await axios.post(
-            "https://expense-tracker-silk-mu.vercel.app/api/sign/signupUser",
+            "https://expense-tracker-blond-ten.vercel.app/api/sign/signupUser",
             formData
         );
         alert(response.data.message); 

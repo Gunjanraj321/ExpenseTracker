@@ -6,7 +6,7 @@ const cors = require("cors");
 const path = require("path");
 const sequelize = require("./database");
 const fs = require("fs");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 //importing middleware
 const verify = require("./middleware/verifyToken");
@@ -28,10 +28,10 @@ const forgotPasswordRequest = require("./models/forgotpassModel");
 //instantiating the application
 const app = express();
 
-const accessLogStream = fs.createWriteStream(
-  path.join(__dirname, "access.log"),
-  { flags: "a" }
-);
+// const accessLogStream = fs.createWriteStream(
+//   path.join(__dirname, "access.log"),
+//   { flags: "a" }
+// );
 
 
 app.use(cors());
@@ -39,7 +39,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(morgan("combined", { stream: accessLogStream }));
+// app.use(morgan("combined", { stream: accessLogStream }));
 
 //making the relation between the user and the expenses abd the orders
 List.belongsTo(user, {
@@ -80,7 +80,7 @@ const port = process.env.PORT || 3000;
 // listening on port
 async function initiate() {
   try {
-    await sequelize.sync();
+    await sequelize.sync().then(()=>console.log("db connected"))
     app.listen(port, () => {
       console.log(`Server is running at ${port}`);
     });
