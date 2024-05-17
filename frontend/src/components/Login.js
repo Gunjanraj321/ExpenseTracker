@@ -18,8 +18,8 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    // e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post(
         "https://expense-tracker-blond-ten.vercel.app/api/sign/loginUser",
