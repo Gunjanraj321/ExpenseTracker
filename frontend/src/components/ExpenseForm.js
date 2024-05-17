@@ -24,7 +24,7 @@ const ExpenseForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3000/api/expenses', formData, {
+            const response = await axios.post('https://expense-tracker-blond-ten.vercel.app/api/expenses', formData, {
                 headers: {
                     Authorization: token
                 }

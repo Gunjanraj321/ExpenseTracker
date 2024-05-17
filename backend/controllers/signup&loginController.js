@@ -93,10 +93,10 @@ const processLogin = async (req, res) => {
 
 async function sendSuccessEmail(to, subject, text) {
   const transporter = nodemailer.createTransport({
-    service: "Gmail", // Your email service provider
+    service: "Gmail", 
     auth: {
-      user: process.env.EMAIL_ID, // Your email address
-      pass: process.env.EMAIL_PASS, // Your email password
+      user: process.env.EMAIL_ID, 
+      pass: process.env.EMAIL_PASS,
     },
   });
   const mailOptions = {

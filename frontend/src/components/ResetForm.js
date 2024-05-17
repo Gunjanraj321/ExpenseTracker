@@ -27,7 +27,7 @@ const ResetForm = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/pass/forgotpassword",
+        "https://expense-tracker-blond-ten.vercel.app/api/pass/forgotpassword",
         formData
       );
       alert("Recovery Mail Sent , PLease check your Mail.")

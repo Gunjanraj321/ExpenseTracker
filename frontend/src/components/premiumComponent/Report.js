@@ -12,7 +12,7 @@ const Report = () => {
   const fetchReportData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/premium/${duration}`,
+        `https://expense-tracker-blond-ten.vercel.app/api/premium/${duration}`,
         {
           headers: {
             "Content-Type": "application/json",

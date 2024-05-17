@@ -30,7 +30,7 @@ const ResetPage = () => {
         }
 
         try {
-            const response = await axios.post(`http://localhost:3000/api/pass/newPassword`, {
+            const response = await axios.post(`https://expense-tracker-blond-ten.vercel.app/api/pass/newPassword`, {
                 uuid: uuid,
                 password: password
             });

@@ -33,7 +33,7 @@ const resetpassword = async (req, res) => {
       return res.status(401).json({ message: "Invalid reset link" });
     }
 
-    res.redirect(`http://localhost:1234/resetForm?uuid=${req.params.uuid}`);
+    res.redirect(`https://expense-tracker-lule.vercel.app/resetForm?uuid=${req.params.uuid}`);
   } catch (err) {
     console.error("Error in resetpassword route:", err);
     res.status(500).json({ message: "Internal server error" });
@@ -95,7 +95,7 @@ const sendMail = async (email , uuid) => {
         <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
           You've requested to reset your password. Please click the link below to reset your password:
         </p>
-        <a href="http://localhost:1234/resetForm/${uuid}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
+        <a href="https://expense-tracker-lule.vercel.app/resetForm/${uuid}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
         <p style="color: #666; font-size: 14px; margin-top: 20px;">
           If you didn't request this, please ignore this email. Your password won't be changed.
         </p>

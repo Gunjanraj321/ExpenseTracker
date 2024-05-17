@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { isAuth, user , updateUserPremiumStatus} from "../redux/authSlice";
+import { isAuth, user, updateUserPremiumStatus } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -19,36 +19,34 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
-        const response = await axios.post(
-            "https://expense-tracker-blond-ten.vercel.app/api/sign/loginUser",
-            formData
-        );
-        if (response.status === 200) {
-            alert(response.data.message); // Alert success message
-            navigate("/");
-            dispatch(user(response.data));
-            dispatch(isAuth(true));
-            dispatch(updateUserPremiumStatus(response.data.isPremium));
-        } else {
-            alert("Login failed. Please try again."); // Alert general failure message
-        }
+      const response = await axios.post(
+        "https://expense-tracker-blond-ten.vercel.app/api/sign/loginUser",
+        formData
+      );
+      if (response.status === 200) {
+        alert(response.data.message); // Alert success message
+        navigate("/");
+        dispatch(user(response.data));
+        dispatch(isAuth(true));
+        dispatch(updateUserPremiumStatus(response.data.isPremium));
+      } else {
+        alert("Login failed. Please try again."); // Alert general failure message
+      }
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            alert("User not found or Please check your Password."); // Alert specific error message from backend
-        } else {
-            alert("An error occurred. Please try again later."); // Alert for other errors
-        }
-        console.error(error);
+      if (error.response && error.response.status === 401) {
+        alert("User not found or Please check your Password."); // Alert specific error message from backend
+      } else {
+        alert("An error occurred. Please try again later."); // Alert for other errors
+      }
+      console.error(error);
     }
-};
-
-
+  };
 
   return (
     <div className="flex flex-col items-center justify-center px-6 mx-auto ">
-      <h2 className="text-xl font-bold text-gray-900 my-2 pX-4 md:text-2xl">
+      <h2 className="text-xl font-bold text-gray-900 my-2 px-4 md:text-2xl">
         Login
       </h2>
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -61,7 +59,7 @@ const Login = () => {
           onChange={handleChange}
         />
         <input
-          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5"
+          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
           type="password"
           name="password"
           placeholder="Password"

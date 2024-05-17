@@ -58,7 +58,7 @@ const PaginatedExpenseList = () => {
   const handleUpdateExpense = async (expenseId, updatedExpense) => {
     try {
       console.log(updatedExpense.id)
-      const response = await axios.put(`http://localhost:3000/api/expenses/${expenseId}`, updatedExpense, {
+      const response = await axios.put(`https://expense-tracker-blond-ten.vercel.app/api/expenses/${expenseId}`, updatedExpense, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -75,7 +75,7 @@ const PaginatedExpenseList = () => {
 
   const handleDeleteExpense = async (expenseId) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/api/expenses/${expenseId}`, {
+      const response = await axios.delete(`https://expense-tracker-blond-ten.vercel.app/api/expenses/${expenseId}`, {
         headers: {
           Authorization: token,
         },
