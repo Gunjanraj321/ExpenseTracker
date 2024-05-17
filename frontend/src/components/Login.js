@@ -19,24 +19,32 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(formData);
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/sign/loginUser",
-        formData
-      );
-
-      navigate("/");
-      
-      dispatch(user(response.data));
-      dispatch(isAuth(true));
-      dispatch(updateUserPremiumStatus(response.data.isPremium));
-
+        const response = await axios.post(
+            "http://localhost:3000/api/sign/loginUser",
+            formData
+        );
+        if (response.status === 200) {
+            alert(response.data.message); // Alert success message
+            navigate("/");
+            dispatch(user(response.data));
+            dispatch(isAuth(true));
+            dispatch(updateUserPremiumStatus(response.data.isPremium));
+        } else {
+            alert("Login failed. Please try again."); // Alert general failure message
+        }
     } catch (error) {
-      console.error(error);
+        if (error.response && error.response.status === 401) {
+            alert("User not found or Please check your Password."); // Alert specific error message from backend
+        } else {
+            alert("An error occurred. Please try again later."); // Alert for other errors
+        }
+        console.error(error);
     }
-  };
+};
+
+
 
   return (
     <div className="flex flex-col items-center justify-center px-6 mx-auto ">

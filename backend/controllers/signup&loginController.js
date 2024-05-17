@@ -32,11 +32,12 @@ const processSignUp = async (req, res) => {
     const token = jwt.sign({ userId: newUser.id }, process.env.jwtSecret);
     const subject = "Registration Successful";
     const text = "Thank you for registering. Your registration was successful.";
+    console.log(token)
     await sendSuccessEmail(email,subject,text);
-
+    
     res.status(201).json({
       message:
-        "registration successful. Check your email for a confirmation message",
+        "registration successful.",
       token: token,
       isPremium,
     });

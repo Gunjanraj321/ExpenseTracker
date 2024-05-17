@@ -39,7 +39,7 @@ const App = () => {
       <Routes>
         <Route path="/auth" element={!verifyUser ? <AuthPage /> : <Navigate to="/" />} />
         <Route path="/about" element={<About />} />
-        <Route path="/auth/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={verifyUser ? <Home /> : <Navigate to="/auth" />} />
         <Route path="/resetForm/:uuid" element={<ResetPage />} />
         <Route path="/report/:duration" element={<Report />} />

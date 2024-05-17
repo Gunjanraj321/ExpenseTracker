@@ -8,7 +8,7 @@ const verify = async (req, res, next) => {
     const key = process.env.jwtSecret;
     const user = jwt.verify(token, key);
     const foundUser = await User.findOne({ where: { id: user.userId } });
-
+    console.log(token)
     if (!foundUser) {
       return res.status(401).json({ success: false, message: "User not found" });
     }

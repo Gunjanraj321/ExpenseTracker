@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useRazorpay from "../hooks/useRazorpay";
 import { isAuth, user, updateUserPremiumStatus } from "../redux/authSlice";
@@ -51,17 +51,17 @@ const Header = () => {
             ))}
           </ul>
         ) : null}
-       
-          {isAuthenticated !== null && !isPremium ? (
-            <button
-              type="button"
-              onClick={handlePremium}
-              className="bg-blue-500 text-white px-4 py-2 rounded mr-4"
-            >
-              Buy Premium
-            </button>
-          ) : null}
-        
+
+        {isAuthenticated !== null && !isPremium ? (
+          <button
+            type="button"
+            onClick={handlePremium}
+            className="bg-blue-500 text-white px-4 py-2 rounded mr-4"
+          >
+            Buy Premium
+          </button>
+        ) : null}
+
         <div>
           {isAuthenticated ? (
             <button

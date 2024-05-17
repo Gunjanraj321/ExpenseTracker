@@ -6,10 +6,10 @@ const About = () => {
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">
-            Welcome to <br /> The Hub of <br /> <span className="text-blue-500">Entertainment</span>
+            Welcome to <br /> Expense Tracker App
           </h1>
           <h4 className="text-lg">
-            "Explore a world of endless music and captivating movies, <br /> all at your fingertips."
+            "Manage your finances efficiently with our Expense Tracker App. <br /> Keep track of your expenses, set budgets, and achieve your financial goals."
           </h4>
         </div>
       </div>

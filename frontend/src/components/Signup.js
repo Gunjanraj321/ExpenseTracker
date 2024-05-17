@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate ,Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { isAuth, user , updateUserPremiumStatus} from "../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,15 +22,25 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/sign/signupUser",
-        formData
-      );
-      navigate("/");
+        const response = await axios.post(
+            "http://localhost:3000/api/sign/signupUser",
+            formData
+        );
+        alert(response.data.message); 
+        navigate("/");
+        dispatch(user(response.data));
+        dispatch(isAuth(true));
+        dispatch(updateUserPremiumStatus(response.data.isPremium));
     } catch (error) {
-      console.error(error);
+        if (error.response && error.response.data) {
+            alert(error.response.data.error);
+        } else {
+            alert("An error occurred. Please try again later."); 
+        }
+        console.error(error);
     }
-  };
+};
+
 
   return (
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -77,7 +91,6 @@ const Signup = () => {
             >
               Create an account
             </button>
-            <p className="text-sm font-light text-gray-500 dark:text-gray-400">Already have an account? <a className="font-medium text-blue-600 hover:underline dark:text-blue-500" href="/signin">Sign in here</a></p>
           </form>
         </div>
       </div>
