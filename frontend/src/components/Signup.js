@@ -23,7 +23,7 @@ const Signup = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/sign/signupUser",
+        "https://expense-tracker-topaz-five.vercel.app/api/sign/signupUser",
         formData
       );
       console.log("Response:", response);

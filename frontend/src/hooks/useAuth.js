@@ -9,7 +9,7 @@ const Auth = () => {
   const checkToeknExpiration = async () => {
     try {
       if (token) {
-        const response = await axios.post("http://localhost:3000/api/sign/authCheck", {
+        const response = await axios.post("https://expense-tracker-topaz-five.vercel.app/api/sign/authCheck", {
           token: token,
         });
         

@@ -19,7 +19,7 @@ const PaginatedExpenseList = () => {
   const fetchExpenseList = async (page) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/expenses/paginated?page=${page}`,
+        `https://expense-tracker-topaz-five.vercel.app/api/expenses/paginated?page=${page}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const PaginatedExpenseList = () => {
     try {
       console.log(updatedExpense.id);
       const response = await axios.put(
-        `http://localhost:3000/api/expenses/${expenseId}`,
+        `https://expense-tracker-topaz-five.vercel.app/api/expenses/${expenseId}`,
         updatedExpense,
         {
           headers: {
@@ -82,7 +82,7 @@ const PaginatedExpenseList = () => {
   const handleDeleteExpense = async (expenseId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/expenses/${expenseId}`,
+        `https://expense-tracker-topaz-five.vercel.app/api/expenses/${expenseId}`,
         {
           headers: {
             Authorization: token,

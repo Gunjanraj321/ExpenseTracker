@@ -22,7 +22,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/sign/loginUser",
+        "https://expense-tracker-topaz-five.vercel.app/api/sign/loginUser",
         formData
       );
       if (response.status === 200) {

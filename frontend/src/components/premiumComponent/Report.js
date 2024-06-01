@@ -11,7 +11,7 @@ const Report = () => {
   const fetchReportData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/premium/${duration}`,
+        `https://expense-tracker-topaz-five.vercel.app/api/premium/${duration}`,
         {
           headers: {
             "Content-Type": "application/json",

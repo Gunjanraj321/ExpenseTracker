@@ -9,7 +9,7 @@ const Leaderboard = () => {
   const fetchLeaderboardData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/premium/leaderboard`,
+        `https://expense-tracker-topaz-five.vercel.app/api/premium/leaderboard`,
         {
           headers: {
             "Content-Type": "application/json",
