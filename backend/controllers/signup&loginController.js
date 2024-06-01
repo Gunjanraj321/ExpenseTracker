@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 
 const processSignUp = async (req, res) => {
   const { name, email, password , isPremium} = req.body;
-
+  // console.log(name, email, password)
   try {
     if (!name || !email || !password ) {
       return res.status(400).json({

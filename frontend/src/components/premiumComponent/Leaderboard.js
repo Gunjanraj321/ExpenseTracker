@@ -4,13 +4,12 @@ import { useSelector } from "react-redux";
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
-  const isAuthenticated = useSelector((state) => state.user);
-  const token = isAuthenticated?.token;
+  const token = useSelector((state) => state.auth.isToken);
 
   const fetchLeaderboardData = async () => {
     try {
       const response = await axios.get(
-        `https://expense-tracker-blond-ten.vercel.app/api/premium/leaderboard`,
+        `http://localhost:3000/api/premium/leaderboard`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -34,14 +33,16 @@ const Leaderboard = () => {
   }, []);
 
   return (
-    <div className="container mx-auto ">
-      <h2 className="text-3xl font-bold mb-4">Leaderboard</h2>
+    <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <h2 className="text-3xl font-bold mb-4 text-center text-gray-700">
+        Leaderboard
+      </h2>
       <ul className="divide-y divide-gray-200">
-        {leaderboardData.map((item, index) => (
+        {leaderboardData.slice(0, 5).map((item, index) => (
           <li key={index} className="flex justify-between items-center py-4">
-            <span className="text-lg">{index + 1}.</span>
-            <span className="text-lg">{item.name}</span>
-            <span className="text-lg">{item.total_cost}</span>
+            <span className="text-lg font-semibold">{index + 1}.</span>
+            <span className="text-lg font-semibold">{item.name}</span>
+            <span className="text-lg font-semibold">{item.total_cost}</span>
           </li>
         ))}
       </ul>

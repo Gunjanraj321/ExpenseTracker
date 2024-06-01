@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { isAuth, user, updateUserPremiumStatus } from "../redux/authSlice";
+import { isAuth, updateUserPremiumStatus ,setToken} from "../redux/authSlice";
 import { useDispatch } from "react-redux";
 
 const Signup = () => {
@@ -23,14 +23,14 @@ const Signup = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://expense-tracker-blond-ten.vercel.app/api/sign/signupUser",
+        "http://localhost:3000/api/sign/signupUser",
         formData
       );
       console.log("Response:", response);
       alert(response.data.message);
       navigate("/");
-      dispatch(user(response.data));
       dispatch(isAuth(true));
+      dispatch(setToken(response.data.token));
       dispatch(updateUserPremiumStatus(response.data.isPremium));
     } catch (error) {
       alert("An error occurred. Please try again later.");

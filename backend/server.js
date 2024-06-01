@@ -3,16 +3,13 @@ require("dotenv").config();
 //importing the modules here in server.js
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const sequelize = require("./database");
-const fs = require("fs");
-// const morgan = require("morgan");
+
 
 //importing middleware
 const verify = require("./middleware/verifyToken");
 
 //importing routes
-const redirectingRoute = require("./routes/redirectingRoute");
 const expenseRoute = require("./routes/expenseRoute");
 const signup_loginRoute = require("./routes/signup&loginRoute");
 const forgotPassRoute = require("./routes/forgotPassRoute");
@@ -28,18 +25,9 @@ const forgotPasswordRequest = require("./models/forgotpassModel");
 //instantiating the application
 const app = express();
 
-// const accessLogStream = fs.createWriteStream(
-//   path.join(__dirname, "access.log"),
-//   { flags: "a" }
-// );
-
-
 app.use(cors());
 
 app.use(express.json());
-
-app.use(express.static(path.join(__dirname, "public")));
-// app.use(morgan("combined", { stream: accessLogStream }));
 
 //making the relation between the user and the expenses abd the orders
 List.belongsTo(user, {
@@ -69,7 +57,7 @@ user.hasMany(forgotPasswordRequest, {
 //making the route endpoint, server can handle the route request and sending the response
 app.use("/api/sign", signup_loginRoute);
 app.use("/api/pass", forgotPassRoute);
-app.use("/api/redirecting", redirectingRoute);
+
 app.use("/api/expenses", verify.verify, expenseRoute);
 app.use("/api/premium",verify.verify, premiumRoute);
 
@@ -80,7 +68,8 @@ const port = process.env.PORT || 3000;
 // listening on port
 async function initiate() {
   try {
-    await sequelize.sync().then(()=>console.log("db connected"))
+    await sequelize.sync()
+    console.log("db connected")
     app.listen(port, () => {
       console.log(`Server is running at ${port}`);
     });

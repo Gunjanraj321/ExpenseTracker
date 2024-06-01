@@ -6,13 +6,12 @@ import { useParams } from "react-router-dom";
 const Report = () => {
   const { duration } = useParams();
   const [reportData, setReportData] = useState([]);
-  const isAuthenticated = useSelector((state) => state.user);
-  const token = isAuthenticated?.token;
+  const token = useSelector((state) => state.auth.isToken);
 
   const fetchReportData = async () => {
     try {
       const response = await axios.get(
-        `https://expense-tracker-blond-ten.vercel.app/api/premium/${duration}`,
+        `http://localhost:3000/api/premium/${duration}`,
         {
           headers: {
             "Content-Type": "application/json",

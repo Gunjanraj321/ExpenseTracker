@@ -1,37 +1,31 @@
-import Auth from "./hooks/useAuth";
-import Home from "./pages/Home";
+import Auth from "./hooks/useAuth"
+import Home from "./pages/Home"
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import About from "./components/About";
 import ResetPage from "./components/ResetPage";
 import { Contact } from "./components/Contact";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Leaderboard from "./components/premiumComponent/Leaderboard";
 import Report from "./components/premiumComponent/Report";
 import AuthPage from "./pages/AuthPage";
 import Login from "./components/Login";
 
-const App = () => {
-  
-  const userLoginData = useSelector((state) => state.user);
-  console.log(userLoginData);
-  const verifyUser = useSelector((state) => state.isAuth);
+function App() {
+  const token = useSelector((state)=>state.auth.isToken);
+  const verifyUser = useSelector((state)=>state.auth.isAuth);
 
   const isAuth = Auth();
 
-  useEffect(() => {
-    console.log(userLoginData);
-    if (userLoginData?.token) {
-      console.log(userLoginData);
-      const interval = setInterval(() => {
+  useEffect(()=>{
+    if(token){
+      const interval = setInterval(()=>{
         isAuth();
-      }, 5 * 60 * 1000);
-
-      return () => clearInterval(interval);
+      },5*60*1000);
+      return ()=>clearInterval(interval);
     }
-  }, [userLoginData]);
+  },[isAuth]);
 
   return (
     <div>
@@ -46,9 +40,8 @@ const App = () => {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/contact" element={<Contact />}></Route>
       </Routes>
-      <Footer />
     </div>
   );
-};
+}
 
 export default App;

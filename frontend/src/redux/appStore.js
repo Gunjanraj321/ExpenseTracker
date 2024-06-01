@@ -1,21 +1,15 @@
-import authReducer from "./authSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "root",
-  storage,
-  blacklist: [],
-};
-const persistedReducer = persistReducer(persistConfig, authReducer);
+import authReducer from "./authSlice";
+import modalReducer from "./modalSlice";
+import drawerReducer from "./drawerSlice";
 
 const appStore = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+  reducer:{
+    auth:authReducer,
+    modal:modalReducer,
+    drawer:drawerReducer,
+  }
 });
 
 export default appStore;

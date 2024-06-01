@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { isAuth, user, updateUserPremiumStatus } from "../redux/authSlice";
+import { isAuth, updateUserPremiumStatus, setToken } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -22,17 +22,17 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://expense-tracker-blond-ten.vercel.app/api/sign/loginUser",
+        "http://localhost:3000/api/sign/loginUser",
         formData
       );
       if (response.status === 200) {
         alert(response.data.message); // Alert success message
         navigate("/");
-        dispatch(user(response.data));
+        dispatch(setToken(response.data.token));
         dispatch(isAuth(true));
         dispatch(updateUserPremiumStatus(response.data.isPremium));
       } else {
-        alert("Login failed. Please try again."); // Alert general failure message
+        alert("Login failed. Please try again."); 
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {

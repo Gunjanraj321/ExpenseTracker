@@ -1,22 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useRazorpay from "../hooks/useRazorpay";
-import { isAuth, user, updateUserPremiumStatus } from "../redux/authSlice";
+import { clearAuthState } from "../redux/authSlice";
 import { Link } from "react-router-dom";
 import { timeItems } from "./datafrombackend";
 
 const Header = () => {
-  const isAuthenticated = useSelector((state) => state.user);
-  const isPremium = useSelector((state) => state.isPremium);
+  const token = useSelector((state) => state.auth.isToken);
+  const authenticated = useSelector((state) => state.auth.isAuth);
+  console.log(authenticated);
+  const isPremium = useSelector((state) => state.auth.isPremium);
+  console.log(isPremium);
   const handlePremium = useRazorpay();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    if (isAuthenticated !== null) {
-      dispatch(isAuth(false));
-      dispatch(updateUserPremiumStatus(false));
-      dispatch(user(null));
-    }
+    dispatch(clearAuthState());
   };
 
   return (
@@ -37,7 +36,7 @@ const Header = () => {
             </span>
           </a>
         </div>
-        {isAuthenticated !== null && isPremium ? (
+        {token !== false && isPremium ? (
           <ul className="flex items-center space-x-6">
             {timeItems.map((item) => (
               <li key={item.id}>
@@ -52,7 +51,7 @@ const Header = () => {
           </ul>
         ) : null}
 
-        {isAuthenticated !== null && !isPremium ? (
+        {authenticated && !isPremium && (
           <button
             type="button"
             onClick={handlePremium}
@@ -60,17 +59,17 @@ const Header = () => {
           >
             Buy Premium
           </button>
-        ) : null}
+        )}
 
         <div>
-          {isAuthenticated ? (
+          {token && (
             <button
               className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
               onClick={handleLogout}
             >
               Logout
             </button>
-          ) : null}
+          )}
         </div>
       </div>
     </nav>

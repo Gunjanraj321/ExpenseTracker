@@ -6,7 +6,6 @@ import ResetForm from "../components/ResetForm";
 const AuthPage = () => {
   const [authOption, setAuthOption] = useState("login");
   
-
   const handleAuthOptionChange = (option) => {
     setAuthOption(option);
   };

@@ -1,13 +1,12 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import Razorpay from "razorpay";
 import {updateUserPremiumStatus} from "../redux/authSlice";
 
 const useRazorpay = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user);
-  const token = isAuthenticated?.token;
+   
+  const token = useSelector((state) => state.auth.isToken);
 
   const handlePremium = useCallback(async () => {
     try {

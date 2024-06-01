@@ -1,17 +1,16 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { isAuth , user} from "../redux/authSlice";
+import { isAuth } from "../redux/authSlice";
 
 const Auth = () => {
-  const isAuthenticated = useSelector((state) => state.user);
+  const token = useSelector((state) => state.auth.setToken);
   const dispatch = useDispatch();
 
   const checkToeknExpiration = async () => {
     try {
-      if (isAuthenticated?.token) {
+      if (token) {
         const response = await axios.post("http://localhost:3000/api/sign/authCheck", {
-          token: isAuthenticated.token,
+          token: token,
         });
         
         if (response.data.success !==false) {
@@ -20,7 +19,6 @@ const Auth = () => {
       }
     } catch (err) {
       dispatch(isAuth(false));
-      dispatch(user(null));
       console.log(err);
     }
   };
